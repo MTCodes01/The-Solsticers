@@ -1,5 +1,5 @@
 import csv, json
-with open('PSCompPars_2024.09.26_08.31.13.csv') as fh:
+with open('PSCompPars.csv') as fh:
     reader = csv.reader(fh)
     for i in range(88):
         next(reader)
