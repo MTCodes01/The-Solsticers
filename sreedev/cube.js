@@ -1,5 +1,37 @@
 import * as THREE from "three";
-import { OrbitControls } from "./three/examples/jsm/controls/OrbitControls.js";
+
+const darkModeToggle = document.querySelector(".left-bottom");
+const wrapper = document.getElementById("wrapper"); // Select the body element
+const body = document.body;
+
+function applyTheme(theme) {
+  if (theme === "dark") {
+    wrapper.classList.add("dark-mode");
+    body.classList.add("dark-mode");
+    darkModeToggle.textContent = "☀️"; // Switch to sun icon for light mode
+  } else {
+    body.classList.remove("dark-mode");
+    wrapper.classList.remove("dark-mode");
+    darkModeToggle.textContent = "🌙"; // Switch to moon icon for dark mode
+  }
+}
+
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  applyTheme(savedTheme); // Apply saved theme on page load
+} else {
+  applyTheme("light"); // Default theme is light
+}
+
+darkModeToggle.addEventListener("click", () => {
+  const currentTheme = wrapper.classList.contains("dark-mode")
+    ? "dark"
+    : "light";
+  const newTheme = currentTheme === "light" ? "dark" : "light";
+
+  applyTheme(newTheme);
+  localStorage.setItem("theme", newTheme); // Save the new theme to localStorage
+});
 
 let planetGroup = new THREE.Group();
 const tempData = {
@@ -17,17 +49,26 @@ const camera = new THREE.PerspectiveCamera(
 
 camera.position.set(0, 5, 10);
 
+const fovSlider = document.getElementById("fovRange");
+fovSlider.addEventListener("input", () => {
+  const fovValue = fovSlider.value;
+  camera.fov = fovValue; // Update the camera's FOV
+  camera.updateProjectionMatrix(); // Apply the change
+});
+
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(window.innerWidth - 50, window.innerHeight - 50);
 document.body.appendChild(renderer.domElement);
 
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
+// Disable orbit controls
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
 
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
 const infoBox = document.getElementById("info");
+const title = document.getElementById("title");
 
 window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
@@ -123,7 +164,6 @@ async function loadData() {
   try {
     const response = await fetch("./data.json");
     const data = await response.json();
-    // const planetGroup = new THREE.Group();
 
     data.info.forEach((planetData) => {
       const {
@@ -182,11 +222,10 @@ window.addEventListener("click", (event) => {
   if (intersects.length > 0) {
     const intersectedObject = intersects[0].object;
 
-    if (intersectedObject.userData /* && isInView(intersectedObject) */) {
+    if (intersectedObject.userData) {
       const planetData = intersectedObject.userData;
-      infoBox.innerHTML = `
-        <strong>Planet Name:</strong> ${planetData["Planet Name"]} <br>
-        <strong>Host name:</strong> ${planetData["Host name"]} <br>
+      title.innerText = planetData["Planet Name"];
+      infoBox.innerHTML = `<strong>Host name:</strong> ${planetData["Host name"]} <br>
         <strong>Discovery Method:</strong> ${planetData["Discovery Method"]} <br>
         <strong>Discovery Year:</strong> ${planetData["Discovery Year"]} <br>
         <strong>Discovery Facility:</strong> ${planetData["Discovery Facility"]} <br>
@@ -199,37 +238,126 @@ window.addEventListener("click", (event) => {
         <strong>Equilibrium Temperature(K):</strong> ${planetData["Equilibrium Temperature(K)"]} <br>
         <strong>Spectral Type:</strong> ${planetData["Spectral Type"]} <br>
         <strong>Stellar Effective Temperature(K):</strong> ${planetData["Stellar Effective Temperature(K)"]} <br>
-        <strong>Distance(pc):</strong> ${planetData["Distance(pc)"]} <br>
-      `;
-      // Highlight the clicked planet
-      intersectedObject.scale.set(1.2, 1.2, 1.2);
-      setTimeout(() => intersectedObject.scale.set(1, 1, 1), 500);
-    } else {
-      infoBox.innerHTML = "Click on a planet to see details.";
+        <strong>Distance(pc):</strong> ${planetData["Distance(pc)"]} <br>`;
     }
   }
 });
 
-function isInView(object) {
-  const frustum = new THREE.Frustum();
-  const cameraViewProjectionMatrix = new THREE.Matrix4();
+loadData();
 
-  cameraViewProjectionMatrix.multiplyMatrices(
-    camera.projectionMatrix,
-    camera.matrixWorldInverse
-  );
-  frustum.setFromProjectionMatrix(cameraViewProjectionMatrix);
+let moveForward = false,
+  moveBackward = false,
+  moveLeft = false,
+  moveRight = false,
+  moveUp = false,
+  moveDown = false,
+  sprint = false;
 
-  const distance = camera.position.distanceTo(object.position);
-  return frustum.intersectsObject(object) && distance < 50;
-}
+const velocity = new THREE.Vector3();
+const direction = new THREE.Vector3();
+const speed = 50; // Movement speed
+const sprintMultiplier = 1.5; // Sprint speed multiplier
+const lookSpeed = 0.002; // Mouse look sensitivity
 
-const clock = new THREE.Clock();
+let yaw = 0;
+let pitch = 0;
+
+const onKeyDown = (event) => {
+  switch (event.code) {
+    case "ArrowUp":
+    case "KeyW":
+      moveForward = true;
+      break;
+    case "ArrowLeft":
+    case "KeyA":
+      moveLeft = true;
+      break;
+    case "ArrowDown":
+    case "KeyS":
+      moveBackward = true;
+      break;
+    case "ArrowRight":
+    case "KeyD":
+      moveRight = true;
+      break;
+    case "ShiftLeft":
+      sprint = true;
+      break;
+    case "Space":
+      moveUp = true;
+      break;
+    case "ControlLeft":
+      moveDown = true;
+      break;
+  }
+};
+
+const onKeyUp = (event) => {
+  switch (event.code) {
+    case "ArrowUp":
+    case "KeyW":
+      moveForward = false;
+      break;
+    case "ArrowLeft":
+    case "KeyA":
+      moveLeft = false;
+      break;
+    case "ArrowDown":
+    case "KeyS":
+      moveBackward = false;
+      break;
+    case "ArrowRight":
+    case "KeyD":
+      moveRight = false;
+      break;
+    case "ShiftLeft":
+      sprint = false;
+      break;
+    case "Space":
+      moveUp = false;
+      break;
+    case "ControlLeft":
+      moveDown = false;
+      break;
+  }
+};
+
+const onMouseMove = (event) => {
+  const movementX =
+    event.movementX || event.mozMovementX || event.webkitMovementX || 0;
+  const movementY =
+    event.movementY || event.mozMovementY || event.webkitMovementY || 0;
+
+  yaw -= movementX * lookSpeed;
+  pitch -= movementY * lookSpeed;
+};
+
+window.addEventListener("keydown", onKeyDown);
+window.addEventListener("keyup", onKeyUp);
+window.addEventListener("mousemove", onMouseMove);
 
 function animate() {
-  controls.update();
-  renderer.render(scene, camera);
   requestAnimationFrame(animate);
-}
 
-loadData();
+  // Camera movement logic
+  direction.z = Number(moveForward) - Number(moveBackward);
+  direction.x = Number(moveRight) - Number(moveLeft);
+  direction.y = Number(moveUp) - Number(moveDown);
+  direction.normalize();
+
+  const currentSpeed = sprint ? speed * sprintMultiplier : speed;
+
+  velocity.x = direction.x * currentSpeed * 0.02;
+  velocity.y = direction.y * currentSpeed * 0.02;
+  velocity.z = direction.z * currentSpeed * 0.02;
+
+  camera.translateX(velocity.x);
+  camera.translateY(velocity.y);
+  camera.translateZ(velocity.z);
+
+  // Mouse look logic
+  camera.rotation.y = yaw;
+  camera.rotation.x = pitch;
+
+  renderer.render(scene, camera);
+}
