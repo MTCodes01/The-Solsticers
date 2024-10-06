@@ -58,7 +58,7 @@ Follow these steps to run the project locally(Assuming you have all the nessasar
    ```bash
    git clone https://github.com/MTCodes01/The-Solsticers.git
    cd The-Solsticers
-   cd sreedev
+   cd main
    ```
 
 2. **Install dependencies:**
