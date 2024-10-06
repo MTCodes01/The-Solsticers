@@ -1,0 +1,107 @@
+/* styles.css */
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Ensures no scrollbars are visible */
+  }
+  
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; /* Keeps the Three.js canvas in the background */
+  }
+  
+  .container {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    z-index: 10; /* Puts the container on top of the Three.js background */
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 0px;
+    color: white; /* Adjust color to make it visible over your background */
+    font-size: 200px;
+    position: relative;
+    top:50px;
+    letter-spacing: .001cap;
+    font-family: 'Orbitron', sans-serif;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color:grey;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    
+    font-size: large;
+  }
+  
+  
+  h1 {
+    font-family: "monospace", 'Garamond', serif, monospace;
+
+      font-weight: 400;
+      font-style: normal;
+      color: rgb(68,215,180);
+      background: linear-gradient(90deg, rgb(68, 215, 180), rgb(231, 28, 223), rgb(167, 250, 77),rgb(17, 14, 179),rgb(35, 228, 213));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+  
+    }
+    
+    h2{
+    
+    margin-bottom: 10px;
+    color: white; /* Adjust color to make it visible over your background */
+    font-size: 20px;
+    margin-top: 20px;
+    letter-spacing: 0.1cap;
+    
+   
+    }
+    .solstices{
+      margin-top: 0px;
+    }
+    button{
+      margin-top:35px;
+      background: transparent;
+      
+  
+  
+    }
+    .h2 {
+      font-family: "IM Fell Double Pica SC", serif;
+      
+    }
+    li{
+      color: white;
+    }
+ .logo{
+
+  color: white;
+  margin-left: 100px;
+ }
+ .nav-link {
+    text-decoration: none;
+    color: black;
+     /* Adjust the value as needed */
+  }
+  
+  
