@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" type="text/css" href="./styles.css" />
+    <title>Celestia</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <div id="wrapper">
+      <!-- <div
+      id="camera-coords"
+      style="
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: rgb(0, 0, 0);
+        z-index: 100;
+      "
+    >
+      Coords:
+    </div> -->
+
+      <!-- <div id="controls">
+      <div>
+        <label for="zoom-slider">Zoom:</label>
+        <input
+          type="range"
+          id="zoom-slider"
+          min="0.5"
+          max="500"
+          step="0.1"
+          value="1"
+        />
+        <span id="zoom-value">1</span>
+      </div>
+    </div> -->
+
+      <button class="left-bottom">☀️</button>
+      <!-- <div class="range">
+      <label for="zoom-slider">Zoom:</label>
+      <input type="range" id="zoom-slider" min="0.5" max="50" step="0.1" value="1">
+      <span id="zoom-value">1</span>
+    </div>
+    
+    <div class="range">
+      <label for="far-slider">Far Clipping Plane:</label>
+      <input type="range" id="far-slider" min="100" max="5000" value="1000">
+      <span id="far-value">1000</span>
+    </div> -->
+
+      <!-- <div class="range" id="controls">
+      <label for="fov-slider">Field of View (FOV):</label>
+      <input type="range" id="fov-slider" min="30" max="120" value="75">
+      <span id="fov-value">75</span>
+    </div> -->
+      <div id="controls">
+        <label for="fovRange">Camera FOV:</label>
+        <input type="range" id="fovRange" min="30" max="120" value="75" />
+      </div>
+      <!-- <div class="range">
+      <label for="far-slider">Far Clipping Plane:</label>
+      <input type="range" id="far-slider" min="100" max="5000" value="1000">
+      <span id="far-value">1000</span>
+    </div> -->
+
+      <div id="circularMenu1" class="circular-menu circular-menu-left">
+        <a
+          class="floating-btn"
+          onclick="document.getElementById('circularMenu1').classList.toggle('active');"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
+
+        <menu class="items-wrapper">
+          <a href="./about.html" class="menu-item fa fa-info"></a>
+          <a href="#" class="menu-item fa fa-cube" id="cubeIcon"></a>
+          <a
+            href="./telescope.html"
+            class="menu-item fa fa-binoculars"
+            id="binocularIcon"
+          ></a>
+          <a href="./index.html" class="menu-item fa fa-home"></a>
+        </menu>
+      </div>
+      <div id="sidebar">
+        <div class="top">
+          <input class="search" id="planetSearch" placeholder="Search Here" />
+          <hr />
+          <!-- <h1>Planet Info</h1> -->
+          <h1 id="title">Planet Name</h1>
+        </div>
+        <div id="info">Click on a planet to see details.</div>
+        <div class="bottom">
+          <p>*move cursor to look around</p>
+          <p>*WASD to move around</p>
+          <p>*Spacebar for up and Shift for down</p>
+          <p>*Change the FOV with the slider</p>
+          <p>*Change Dark/Light Mode using the button</p>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./cube.js"></script>
+  </body>
+</html>
