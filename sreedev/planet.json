@@ -1,0 +1,10 @@
+{
+    "planets": [
+      { "name": "Mercury", "size": 0.5, "position": [5, 0, 0], "color": 16777215 },
+      { "name": "Venus", "size": 1, "position": [8, 0, 0], "color": 16763955 },
+      { "name": "Earth", "size": 1, "position": [11, 0, 0], "color": 6737151 },
+      { "name": "Mars", "size": 0.7, "position": [14, 0, 0], "color": 16711907 },
+      { "name": "Jupiter", "size": 2.5, "position": [18, 0, 0], "color": 16758222 }
+    ]
+  }
+  
