@@ -1,21 +1,87 @@
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap");
-
 body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding:0;
+  
+  background: linear-gradient(to bottom,white, #33333336);
+  color: #333;
+}
+header{ 
+  color:white;
+  text-align:center;
+  
+
+  
+}
+
+
+nav{
+  
+  background: linear-gradient(#322536,#2C3749);
+  
+ padding:0;
+ list-style:none;
+  
+  
+  
+}
+
+nav ul li {
+  display: inline;
+  margin: 0,10px;
+  
+}
+ul{
+  margin-top:0%;
+}
+
+
+
+.hero img {
+  position: absolute;
+  height:10vmin;
+  width:10vmin;
+  left:0;
+  top:3vmin;
+  left:3vmin;
+  
+}
+
+.about, .team {
+  padding: 20px;
+  text-align: center;
+}
+
+.team {
+  background: #f4f4f4;
+}
+
+.team-member {
+  display: inline-block;
+  margin: 20px;
+  text-align: center;
+}
+
+.team-member img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+
+.team-member h3 {
+  margin: 10px 0 5px;
+}
+
+.team-member p {
   margin: 0;
 }
-#sidebar {
-    /* display: none; */
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 250px;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  overflow-y: auto;
+
+.socials {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: center;
 }
-#info {
-  margin-top: 20px;
+.logo{
+  text-decoration: none;
 }
