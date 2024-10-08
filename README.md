@@ -2,7 +2,7 @@
 
 Welcome to the official repository **Celestia**, created as part of our hackathon submission for the NASA Space Apps Challenge! The project topic is **Navigator for the Habitable Worlds Observatory (HWO): Mapping the Characterizable Exoplanets in our Galaxy**.
 
-> 🚀 **Live Demo:** [Click here!](test)
+> 🚀 **Live Demo:** [Click here!](https://nasa.24frames.studio/)
 
 ---
 
@@ -11,9 +11,7 @@ Welcome to the official repository **Celestia**, created as part of our hackatho
 2. [Key Features](#key-features)
 3. [Technologies Used](#technologies-used)
 4. [Setup and Installation](#setup-and-installation)
-5. [File Structure](#file-structure)
-6. [Contributors](#contributors)
-7. [License](#license)
+5. [Contributors](https://nasa.24frames.studio/about.html)
 
 ---
 
@@ -49,7 +47,7 @@ We utilized the following technologies to build **Celestia**:
 
 ---
 
-## **Setup and Installation**
+## **Local Setup and Installation**
 
 Follow these steps to run the project locally(Assuming you have all the nessasary things like npm(Node Package Manager), Git and three.js installed):
 
