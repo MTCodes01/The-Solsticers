@@ -2,8 +2,6 @@
 
 Welcome to the official repository **Celestia**, created as part of our hackathon submission for the NASA Space Apps Challenge! The project topic is **Navigator for the Habitable Worlds Observatory (HWO): Mapping the Characterizable Exoplanets in our Galaxy**.
 
-> 🚀 **Live Demo:** [Click here!](https://nasa.24frames.studio/)
-
 ---
 
 ## **Table of Contents**
